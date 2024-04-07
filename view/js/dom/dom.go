@@ -4,35 +4,36 @@ import (
 	"syscall/js"
 )
 
-var document js.Value
+var Document js.Value
 
 func init() {
-	document = js.Global().Get("document")
+	Document = js.Global().Get("document")
+
 }
 func getElementById(elem string) js.Value {
-	return document.Call("getElementById", elem)
+	return Document.Call("getElementById", elem)
 }
-func getElementValue(elem string, value string) js.Value {
+func GetElementValue(elem string, value string) js.Value {
 	return getElementById(elem).Get(value)
 }
 
 func Hide(elem string) {
-	getElementValue(elem, "style").Call("setProperty", "display", "none")
+	GetElementValue(elem, "style").Call("setProperty", "display", "none")
 }
 
 func Show(elem string) {
-	getElementValue(elem, "style").Call("setProperty", "display", "block")
+	GetElementValue(elem, "style").Call("setProperty", "display", "block")
 }
 func AddClass(elem string, class string) {
-	getElementValue(elem, "classList").Call("add", class)
+	GetElementValue(elem, "classList").Call("add", class)
 }
 
 func RemoveClass(elem string, class string) {
-	classList := getElementValue(elem, "classList")
+	classList := GetElementValue(elem, "classList")
 	if classList.Call("contains", class).Bool() {
 		classList.Call("remove", class)
 	}
 }
 func SetInner(elem string, value string) {
-	getElementById(elem).Get(value).Set("innerText", value)
+	getElementById(elem).Set("innerText", value)
 }

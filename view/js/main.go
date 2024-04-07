@@ -1,10 +1,13 @@
 package main
 
 import (
-	"github.com/golangast/wasmtest/dom"
+	"syscall/js"
 )
 
 func main() {
-	dom.Hide("loading")
+	temp := `<p>dfsfdfdf</p>`
+
+	js.Global().Call("CreateComponent", "my-component", temp)
+
 	<-make(chan bool)
 }
